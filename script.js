@@ -12,17 +12,20 @@ let secondUs1 = null;
 let secondUs2 = null;
 
 user1.addEventListener('input', (event)=>{
+  user1.setAttribute('autocomplete', 'off');                        // * Винести у функцію
   dataUser1 = event.target.value;
-
   console.log(dataUser1);
 
   if (dataUser1.length >=10){
     user1.setAttribute('readonly', 'readonly');
+  } else {
+    label1.innerHTML = "<span class='warning'>** Не юзай автокомпліт. ТИЦЯЙ RESET ** </span>"
   }
   secondUs1 = getDate(dataUser1);
 
 })
 user2.addEventListener('input', (event)=>{
+  user2.setAttribute('autocomplete', 'off');                        // * Винести у функцію
   dataUser2 = event.target.value;
   console.log(dataUser2);
   secondUs2 = getDate(dataUser2);
@@ -30,22 +33,26 @@ user2.addEventListener('input', (event)=>{
   if (dataUser2.length >= 10){
     user2.setAttribute('readonly', 'readonly');
     difference(secondUs1, secondUs2)
+  } else {
+    label2.innerHTML = "<span class='warning'>** Не юзай автокомпліт. ТИЦЯЙ RESET ** </span>"
   }
 })
 btn.addEventListener('click', () => {
 
   user1.value = '';
   user1.removeAttribute('readonly');
+  user1.blur();
 
   user2.value = '';
   user2.removeAttribute('readonly');
+  user2.blur();
 })
 
 function difference (secUs1, secUs2){
   const secondsInYear = 365 * 24 * 60 * 60;
 
   if(secUs1 > secUs2 ){
-    let different = Math.floor((secUs1 - secUs2) / secondsInYear);
+    let different = Math.round((secUs1 - secUs2) / secondsInYear, );
     divAnswer.innerHTML = `<span>Юзер 1 молодший за юзера 2 на ${different} роки(ів)</span>`;
     console.log(different);
     return different;
